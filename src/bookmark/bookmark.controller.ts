@@ -11,29 +11,29 @@ export class BookmarkController {
     constructor(private bookmarkService: BookmarkService) {}
 
     @Post()
-    createBookmark(@GetUser() user: User, @Body() dto: CreateBookmarkDto) {
-        return this.bookmarkService.createBookmark(user.id, dto);
+    createBookmark(@GetUser('id') userId: number, @Body() dto: CreateBookmarkDto) {
+        return this.bookmarkService.createBookmark(userId, dto);
     };
 
     @Get()
-    getBookmarks(@GetUser() user: User) {
-        return this.bookmarkService.getBookmarks(user.id);
+    getBookmarks(@GetUser('id') userId: number) {
+        return this.bookmarkService.getBookmarks(userId);
     };
 
     @Get(':id')
-    getBookmarkById(@GetUser() user: User, @Param('id', ParseIntPipe) bookmarkId: number) {
-        return this.bookmarkService.getBookmarkById(user.id, bookmarkId);
+    getBookmarkById(@GetUser('id') userId: number, @Param('id', ParseIntPipe) bookmarkId: number) {
+        return this.bookmarkService.getBookmarkById(userId, bookmarkId);
     };
 
     @Patch(':id')
-    editBookmarkById(@GetUser() user: User, @Body() dto: EditBookmarkDto,
+    editBookmarkById(@GetUser('id') userId: number, @Body() dto: EditBookmarkDto,
                     @Param('id', ParseIntPipe) bookmarkId: number) {
-        return this.bookmarkService.editBookmarkById(user.id, dto, bookmarkId);
+        return this.bookmarkService.editBookmarkById(userId, dto, bookmarkId);
     };
 
     @HttpCode(HttpStatus.NO_CONTENT)
     @Delete(':id')
-    deleteBookmarkById(@GetUser() user: User, @Param('id', ParseIntPipe) bookmarkId: number) {
-        return this.bookmarkService.deleteBookmarkById(user.id, bookmarkId);
+    deleteBookmarkById(@GetUser('id') userId: number, @Param('id', ParseIntPipe) bookmarkId: number) {
+        return this.bookmarkService.deleteBookmarkById(userId, bookmarkId);
     };
 }
